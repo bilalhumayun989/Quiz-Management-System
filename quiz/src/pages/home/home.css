@@ -1,0 +1,188 @@
+/* Global Home Styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 160px 0 100px;
+  background:
+    linear-gradient(to bottom, rgba(15, 17, 21, 0.8), rgba(15, 17, 21, 1)),
+    url('/assets/quiz--img.jpg') no-repeat center center/cover;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: radial-gradient(circle at 50% 30%, rgba(31, 111, 184, 0.4) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-title {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: white;
+  /* Fallback */
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  line-height: 1.1;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title span {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: clamp(18px, 2vw, 22px);
+  color: #d1d5db;
+  /* Lighter than muted */
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+/* Feature Cards */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.feature-card {
+  padding: 40px;
+  border-radius: 24px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
+  text-align: left;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  background: var(--glass-hover);
+  border-color: var(--primary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: white;
+  font-size: 24px;
+}
+
+.feature-card h3 {
+  font-size: 22px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.feature-card p {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Image Text Section */
+.image-text-section {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  padding: 100px 0;
+}
+
+.image-text-content {
+  flex: 1;
+}
+
+.image-text-image {
+  flex: 1;
+  position: relative;
+}
+
+.image-text-image img {
+  width: 100%;
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--glass-border);
+}
+
+/* Pricing Section */
+.pricing-section {
+  padding: 100px 0;
+  background: var(--bg-darker);
+}
+
+.pricing-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.pricing-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 48px 32px;
+  width: 100%;
+  max-width: 350px;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pricing-card.premium {
+  border-color: var(--primary);
+  background: rgba(31, 111, 184, 0.05);
+  transform: scale(1.05);
+}
+
+.plan-price {
+  font-size: 48px;
+  font-weight: 800;
+  color: white;
+  margin: 20px 0;
+}
+
+.plan-price span {
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .image-text-section {
+    flex-direction: column;
+    text-align: center;
+  }
+}
