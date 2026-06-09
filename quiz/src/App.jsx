@@ -18,8 +18,13 @@ import Footer from "./components/footer/footer";
 function AppWrapper() {
   const location = useLocation();
 
-  // If current path starts with "/dashboard", hide header and footer
-  const hideHeaderFooter = location.pathname.startsWith("/dashboard");
+  // Hide header and footer on app-focused/auth pages.
+  const hideHeaderFooter =
+    location.pathname.startsWith("/dashboard") ||
+    location.pathname === "/show-question" ||
+    location.pathname === "/result" ||
+    location.pathname === "/login" ||
+    location.pathname === "/signup";
 
   return (
     <>

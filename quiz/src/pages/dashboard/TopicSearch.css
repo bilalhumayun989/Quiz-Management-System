@@ -1,3 +1,7 @@
+/* ============================================================
+   TOPIC SEARCH — White / black-grayish theme
+   ============================================================ */
+
 .topic-container {
   min-height: calc(100vh - 100px);
   display: flex;
@@ -6,90 +10,112 @@
 }
 
 .content-box {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding: 60px 40px;
-  border-radius: 32px;
-  max-width: 650px;
+  background: #FFFFFF;
+  padding: 56px 48px;
+  border-radius: 28px;
+  max-width: 620px;
   width: 100%;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
 }
 
 .quiz-title {
-  font-size: 42px;
-  font-weight: 800;
-  color: white;
-  margin-bottom: 20px;
   font-family: 'Outfit', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  color: #101010;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
 }
 
 .quiz-title span {
-  color: var(--primary);
+  color: #5F5F60;
 }
 
 .quiz-description {
-  font-size: 16px;
-  color: var(--text-muted);
+  font-size: 15px;
+  color: #5F5F60;
   line-height: 1.7;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
 .topic-input-wrapper {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  padding: 8px;
+  background: #F5F5F5;
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  padding: 6px;
   display: flex;
   align-items: center;
-  transition: var(--transition);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .topic-input-wrapper:focus-within {
-  border-color: var(--primary);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 0 4px rgba(31, 111, 184, 0.1);
+  border-color: #101010;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(16, 16, 16, 0.08);
 }
 
 .topic-input {
   flex: 1;
   background: transparent;
   border: none;
-  color: white;
-  padding: 12px 16px;
-  font-size: 16px;
+  color: #101010;
+  padding: 11px 14px;
+  font-size: 15px;
   outline: none;
+  font-family: 'Inter', sans-serif;
 }
 
 .topic-input::placeholder {
-  color: #555;
+  color: #ABABAB;
 }
 
 .topic-search-btn {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
+  background: #101010;
+  color: #FFFFFF;
   border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition);
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .topic-search-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  filter: brightness(1.1);
-  box-shadow: 0 4px 15px rgba(31, 111, 184, 0.3);
+  background: #2a2a2a;
+  transform: translateY(-1px);
 }
 
 .topic-search-btn:disabled {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 .topic-search-icon {
-  font-size: 20px;
+  font-size: 17px;
+}
+
+/* Popular tags */
+.content-box .border-top {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.content-box .badge {
+  background: #F0F0F0 !important;
+  color: #5F5F60 !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px !important;
+  border-radius: 8px !important;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.content-box .badge:hover {
+  background: #101010 !important;
+  color: #FFFFFF !important;
+  border-color: #101010 !important;
 }

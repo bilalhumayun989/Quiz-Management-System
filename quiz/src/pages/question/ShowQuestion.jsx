@@ -80,9 +80,9 @@ export default function ShowQuestion() {
 
   if (!questions) {
     return (
-      <div className="text-center pt-5 mt-5">
-        <h3 className="text-white">No active quiz. Please go back and select a topic.</h3>
-        <button className="btn btn-primary mt-3" onClick={() => navigate('/quiz')}>Go Back</button>
+      <div className="empty-quiz-state">
+        <h3>No active quiz. Please go back and select a topic.</h3>
+        <button className="btn-submit empty-state-button" onClick={() => navigate('/quiz')}>Go Back</button>
       </div>
     );
   }
@@ -110,7 +110,7 @@ export default function ShowQuestion() {
             transition={{ delay: index * 0.1 }}
           >
             <p className="question-text">
-              <span className="text-primary me-2">Q{index + 1}.</span> {q.question}
+              <span className="question-number">Q{index + 1}.</span> {q.question}
             </p>
 
             <div className="options-grid">
@@ -123,8 +123,8 @@ export default function ShowQuestion() {
                     onClick={() => handleChange(index, opt)}
                   >
                     <div className="d-flex align-items-center w-100">
-                      <div className={`option-radio-custom me-3 border rounded-circle d-flex align-items-center justify-content-center ${isSelected ? 'bg-white text-primary' : 'border-secondary'}`} style={{ width: '24px', height: '24px' }}>
-                        {isSelected && <div className="bg-current rounded-circle" style={{ width: '12px', height: '12px', backgroundColor: 'currentColor' }}></div>}
+                      <div className={`option-radio-custom ${isSelected ? 'selected' : ''}`}>
+                        {isSelected && <div className="option-radio-dot"></div>}
                       </div>
                       <span className="flex-grow-1">{opt}</span>
                       {isSelected && <FaCheckCircle className="ms-2" />}

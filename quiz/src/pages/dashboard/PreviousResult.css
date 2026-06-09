@@ -1,95 +1,166 @@
-/* Previous Results Styling */
+/* ============================================================
+   PREVIOUS RESULT — White / black-grayish theme
+   ============================================================ */
+
+/* Section heading */
+.container h3 {
+  font-family: 'Outfit', sans-serif;
+  color: #101010 !important;
+  letter-spacing: -0.5px;
+}
+
+.container h3 span {
+  color: #5F5F60 !important;
+}
+
+/* Table container */
 .results-table-container {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 .table {
-  color: var(--text-light) !important;
+  color: #101010 !important;
   margin-bottom: 0;
 }
 
 .table thead th {
-  background: rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid var(--glass-border);
-  color: var(--text-muted);
+  background: #F5F5F5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  color: #5F5F60;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
   padding: 16px 20px;
 }
 
 .table tbody td {
   padding: 16px 20px;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   vertical-align: middle;
-  font-size: 15px;
+  font-size: 14px;
+  color: #101010;
+}
+
+.table tbody td.topic-cell {
+  color: #101010 !important;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .table tbody tr:hover {
-  background: var(--glass-hover) !important;
+  background: #F9F9F9 !important;
 }
 
 .score-badge {
-  background: rgba(31, 111, 184, 0.1);
-  color: var(--primary);
-  padding: 6px 12px;
+  background: #F0F0F0;
+  color: #101010;
+  padding: 5px 12px;
   border-radius: 8px;
   font-weight: 700;
+  font-size: 13px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.topic-progress {
+  width: 150px;
+  height: 8px;
+  overflow: hidden;
+  background: #E5E5E7;
+  border-radius: 4px;
+}
+
+.topic-progress-bar {
+  height: 100%;
+  min-width: 6px;
+  background: #101010;
+  border-radius: inherit;
+}
+
+.topic-progress-bar.needs-review {
+  background: #5F5F60;
 }
 
 .date-text {
-  color: var(--text-muted);
-  font-size: 14px;
+  color: #5F5F60;
+  font-size: 13px;
 }
 
-/* Modal Styling */
+/* View button override */
+.table .btn-primary-custom {
+  background: #101010;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.table .btn-primary-custom:hover {
+  background: #2a2a2a;
+  color: #FFFFFF;
+}
+
+/* Modal */
 .modal-content {
-  background: var(--bg-dark) !important;
-  border: 1px solid var(--glass-border) !important;
-  border-radius: 24px !important;
-  color: var(--text-light) !important;
+  background: #FFFFFF !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 20px !important;
+  color: #101010 !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
 }
 
 .modal-header {
-  border-bottom: 1px solid var(--glass-border) !important;
-  padding: 24px !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  padding: 22px 28px !important;
 }
 
 .modal-title {
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
+  color: #101010;
 }
 
 .modal-body {
-  padding: 24px !important;
-  max-height: 70vh;
+  padding: 24px 28px !important;
+  max-height: 65vh;
+  overflow-y: auto;
 }
 
-.modal-footer {
-  border-top: 1px solid var(--glass-border) !important;
-  padding: 20px !important;
+.btn-close {
+  filter: none !important;
 }
 
 .q-box {
-  background: rgba(255, 255, 255, 0.02);
+  background: #F9F9F9;
   border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  border: 1px solid var(--glass-border);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.q-box p {
+  color: #101010 !important;
 }
 
 .text-success {
-  color: var(--secondary) !important;
+  color: #16a34a !important;
 }
 
 .text-danger {
-  color: #ff4d4d !important;
+  color: #dc2626 !important;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
+.border-end {
+  border-color: rgba(0, 0, 0, 0.08) !important;
 }

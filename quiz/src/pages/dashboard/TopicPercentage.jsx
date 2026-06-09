@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import "./PreviousResult.css";
 
 export default function TopicPercentage() {
   const [results, setResults] = useState([]);
@@ -47,7 +48,7 @@ export default function TopicPercentage() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h3 className="mb-4 fw-bold text-white fs-2">Topic-wise <span className="text-primary">Analytics</span></h3>
+        <h3 className="mb-4 fw-bold fs-2">Topic-wise <span>Analytics</span></h3>
 
         <div className="results-table-container">
           <table className="table">
@@ -70,13 +71,13 @@ export default function TopicPercentage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.05 }}
                   >
-                    <td className="fw-bold text-white">{res.topic}</td>
+                    <td className="topic-cell fw-bold">{res.topic}</td>
                     <td><span className="score-badge">{percentage}%</span></td>
                     <td>
-                      <div className="progress bg-dark" style={{ height: '8px', width: '150px', borderRadius: '4px' }}>
+                      <div className="topic-progress">
                         <div
-                          className={`progress-bar ${isPass ? 'bg-primary' : 'bg-danger'}`}
-                          style={{ width: `${percentage}%`, borderRadius: '4px' }}
+                          className={`topic-progress-bar ${isPass ? 'is-pass' : 'needs-review'}`}
+                          style={{ width: `${percentage}%` }}
                         ></div>
                       </div>
                     </td>

@@ -1,53 +1,67 @@
+/* ============================================================
+   TRENDING TOPICS — White / black-grayish theme
+   ============================================================ */
+
 .trending-container {
   background: transparent;
+}
+
+.trending-container h2 {
+  font-family: 'Outfit', sans-serif;
+  color: #101010 !important;
+  letter-spacing: -0.5px;
+}
+
+.trending-container h2 span {
+  color: #5F5F60 !important;
 }
 
 .trending-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
 .trending-item {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  padding: 20px 24px;
-  border-radius: 16px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 18px 24px;
+  border-radius: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: var(--transition);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .trending-item:hover {
-  background: var(--glass-hover);
-  border-color: var(--primary);
-  transform: translateX(10px);
+  background: #F5F5F5;
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: translateX(6px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 .topic-tag {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  color: white;
+  color: #101010;
   text-transform: capitalize;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .topic-tag::before {
   content: '#';
-  color: var(--primary);
+  color: #5F5F60;
+  font-weight: 800;
 }
 
 .search-count {
-  background: rgba(31, 111, 184, 0.1);
-  color: var(--primary);
-  padding: 6px 16px;
+  background: #F0F0F0;
+  color: #5F5F60;
+  padding: 5px 14px;
   border-radius: 50px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  border: 1px solid rgba(31, 111, 184, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }

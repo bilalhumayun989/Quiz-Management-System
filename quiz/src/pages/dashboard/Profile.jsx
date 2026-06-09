@@ -89,7 +89,7 @@ export default function Profile() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h3 className="mb-5 fw-bold text-white fs-2">Account <span className="text-primary">Profile</span></h3>
+        <h3 className="mb-5 fw-bold fs-2" style={{ color: '#101010' }}>Account <span style={{ color: '#5F5F60' }}>Profile</span></h3>
 
         {message && (
           <motion.div

@@ -1,31 +1,31 @@
-import { useNavigate, Link } from "react-router-dom";
-import { Link as ScrollLink } from "react-scroll";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaSearch, FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
-import * as bootstrap from 'bootstrap';
-import "./Navbar.css";
+import { useNavigate, Link } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaSearch, FaUserCircle, FaBars, FaTimes, FaGraduationCap } from 'react-icons/fa';
+import './Navbar.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [profile, setProfile] = useState(null);
-  const [topic, setTopic] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [profile, setProfile]           = useState(null);
+  const [topic, setTopic]               = useState('');
+  const [loading, setLoading]           = useState(false);
+  const [mobileOpen, setMobileOpen]     = useState(false);
+  const [profileOpen, setProfileOpen]   = useState(false);
+  const [profileLoading, setProfileLoading] = useState(false);
 
-  const handleProtectedNavigation = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigate("/quiz");
-    } else {
-      navigate("/login");
-    }
+  const closeMobile = () => setMobileOpen(false);
+
+  const handleProtectedNav = () => {
+    closeMobile();
+    navigate(localStorage.getItem('token') ? '/quiz' : '/login');
   };
 
-  const handleSearchSubmit = async (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
-    if (!token) return navigate("/login");
+    if (!topic.trim()) return;
+    const token = localStorage.getItem('token');
+    if (!token) return navigate('/login');
 
     setLoading(true);
     try {
@@ -34,170 +34,253 @@ const Navbar = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic }),
       });
-
       const data = await res.json();
-      if (data && data.questions) {
+      if (data?.questions) {
         navigate('/show-question', { state: { questions: data.questions, topic } });
-        setIsMobileMenuOpen(false);
+        closeMobile();
+        setTopic('');
       }
-    } catch (error) {
-      console.error('Error fetching questions:', error);
+    } catch (err) {
+      console.error('Search error:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchProfile = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) return navigate("/login");
+  const openProfile = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return navigate('/login');
 
+    setProfileOpen(true);
+    setProfileLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/auth/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const res = await fetch('http://localhost:5000/api/auth/profile', {
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
       setProfile(data);
-      // Using Bootstrap modal via JS
-      const modalElement = document.getElementById("profileModal");
-      if (modalElement) {
-        const modal = new bootstrap.Modal(modalElement);
-        modal.show();
-      }
     } catch (err) {
-      console.error("Error fetching profile:", err);
+      console.error('Profile error:', err);
+    } finally {
+      setProfileLoading(false);
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem('token');
+    setProfileOpen(false);
+    setProfile(null);
+    navigate('/login');
   };
 
   return (
     <>
       <div className="navbar-floating-container">
-        <motion.nav
-          className="navbar-pill"
-          initial={{ y: -50, opacity: 0 }}
+        {/* ── Main bar ── */}
+        <motion.div
+          className="navbar-bar"
+          initial={{ y: -64, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 120, damping: 20 }}
+          transition={{ type: 'spring', stiffness: 140, damping: 22 }}
         >
-          {/* Logo */}
-          <Link to="/" className="navbar-brand-pill">
-            <span className="brand-dot"></span>
-            Quiz<span className="text-highlight">System</span>
-          </Link>
+          <div className="navbar-inner">
+            {/* Brand */}
+            <Link to="/" className="navbar-brand">
+              <div className="navbar-brand-icon">
+                <FaGraduationCap />
+              </div>
+              <span className="navbar-brand-name">QuizMaster</span>
+            </Link>
 
-          {/* Desktop Links */}
-          <div className="navbar-links-desktop">
-            <Link to="/" className="nav-link-pill">Home</Link>
-            <ScrollLink
-              to="features-section"
-              smooth={true}
-              duration={500}
-              className="nav-link-pill"
-            >
-              Features
-            </ScrollLink>
-            <button onClick={handleProtectedNavigation} className="nav-link-pill btn-link">
-              Start Quiz
-            </button>
-          </div>
-
-          {/* Search & Profile */}
-          <div className="navbar-actions">
-            <div className="search-pill-wrapper">
-              <form onSubmit={handleSearchSubmit}>
-                <button type="submit" className="search-icon-btn" disabled={loading}>
-                  <FaSearch />
-                </button>
-                <input
-                  type="text"
-                  placeholder="Topic..."
-                  value={topic}
-                  onChange={(e) => setTopic(e.target.value)}
-                  className="search-pill-input"
-                />
-              </form>
-            </div>
-
-            <button className="profile-pill-btn" onClick={fetchProfile} aria-label="Profile">
-              <FaUserCircle size={20} />
-            </button>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              className="mobile-menu-toggle"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-            </button>
-          </div>
-        </motion.nav>
-
-        {/* Mobile Menu Dropdown */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              className="mobile-menu-dropdown"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-            >
-              <Link to="/" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+            {/* Desktop links */}
+            <nav className="navbar-links">
+              <Link to="/" className="nav-link">Home</Link>
               <ScrollLink
                 to="features-section"
-                smooth={true}
+                smooth
                 duration={500}
-                className="mobile-link"
-                onClick={() => setIsMobileMenuOpen(false)}
+                className="nav-link"
+                style={{ cursor: 'pointer' }}
               >
                 Features
               </ScrollLink>
-              <button
-                onClick={() => { handleProtectedNavigation(); setIsMobileMenuOpen(false); }}
-                className="mobile-link btn-link"
+              <ScrollLink
+                to="dashboard-section"
+                smooth
+                duration={500}
+                className="nav-link"
+                style={{ cursor: 'pointer' }}
               >
+                Demo
+              </ScrollLink>
+            </nav>
+
+            {/* Right actions */}
+            <div className="navbar-actions">
+              {/* Search */}
+              <form className="navbar-search-form" onSubmit={handleSearch}>
+                <input
+                  type="text"
+                  className="navbar-search-input"
+                  placeholder="Search topic…"
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                  aria-label="Search topic"
+                />
+                <button
+                  type="submit"
+                  className="navbar-search-btn"
+                  disabled={loading}
+                  aria-label="Submit search"
+                >
+                  {loading
+                    ? <span style={{ width: 12, height: 12, border: '2px solid rgba(255,255,255,0.4)', borderTopColor: '#fff', borderRadius: '50%', display: 'inline-block', animation: 'nav-spin 0.7s linear infinite' }} />
+                    : <FaSearch />
+                  }
+                </button>
+              </form>
+
+              {/* Profile */}
+              <button
+                className="navbar-profile-btn"
+                onClick={openProfile}
+                aria-label="Open profile"
+              >
+                <FaUserCircle />
+              </button>
+
+              {/* CTA */}
+              <button className="navbar-cta-btn" onClick={handleProtectedNav}>
                 Start Quiz
               </button>
+
+              {/* Mobile toggle */}
+              <button
+                className="navbar-mobile-toggle"
+                onClick={() => setMobileOpen((o) => !o)}
+                aria-label="Toggle menu"
+                aria-expanded={mobileOpen}
+              >
+                {mobileOpen ? <FaTimes /> : <FaBars />}
+              </button>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── Mobile drawer ── */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              className="navbar-mobile-drawer"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.22, ease: 'easeInOut' }}
+            >
+              <div className="navbar-mobile-inner">
+                <Link to="/" className="mobile-nav-link" onClick={closeMobile}>Home</Link>
+                <ScrollLink
+                  to="features-section"
+                  smooth
+                  duration={500}
+                  className="mobile-nav-link"
+                  onClick={closeMobile}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Features
+                </ScrollLink>
+                <ScrollLink
+                  to="dashboard-section"
+                  smooth
+                  duration={500}
+                  className="mobile-nav-link"
+                  onClick={closeMobile}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Demo
+                </ScrollLink>
+
+                {/* Mobile search */}
+                <form className="mobile-search-form" onSubmit={handleSearch}>
+                  <input
+                    type="text"
+                    className="mobile-search-input"
+                    placeholder="Search a topic…"
+                    value={topic}
+                    onChange={(e) => setTopic(e.target.value)}
+                    aria-label="Search topic"
+                  />
+                  <button
+                    type="submit"
+                    className="mobile-search-btn"
+                    disabled={loading}
+                    aria-label="Submit search"
+                  >
+                    <FaSearch />
+                  </button>
+                </form>
+
+                <button className="mobile-cta-btn" onClick={handleProtectedNav}>
+                  Start Quiz
+                </button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Profile Modal (Bootstrap) */}
-      <div className="modal fade" id="profileModal" tabIndex="-1" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content glass-modal">
-            <div className="modal-header border-0">
-              <h5 className="modal-title fw-bold text-white">Your Profile</h5>
-              <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body text-center text-white">
-              {profile ? (
-                <div className="d-flex flex-column align-items-center">
-                  <div className="profile-avatar mb-3">
-                    {profile.image ? (
-                      <img src={profile.image} alt="Avatar" />
-                    ) : (
-                      <FaUserCircle size={60} />
-                    )}
-                  </div>
-                  <h4 className="mb-1">{profile.name}</h4>
-                  <p className="text-muted mb-4">{profile.email}</p>
-                  <button className="btn btn-danger w-100 rounded-pill" onClick={handleLogout}>
-                    Sign Out
-                  </button>
+      {/* ── Profile modal ── */}
+      <AnimatePresence>
+        {profileOpen && (
+          <motion.div
+            className="profile-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={(e) => { if (e.target === e.currentTarget) setProfileOpen(false); }}
+          >
+            <motion.div
+              className="profile-modal-box"
+              initial={{ opacity: 0, scale: 0.94, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 16 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+            >
+              <button
+                className="profile-modal-close"
+                onClick={() => setProfileOpen(false)}
+                aria-label="Close profile"
+              >
+                <FaTimes />
+              </button>
+
+              {profileLoading ? (
+                <div className="profile-modal-spinner">
+                  <span className="profile-spinner" />
                 </div>
+              ) : profile ? (
+                <>
+                  <div className="profile-modal-avatar">
+                    {profile.image
+                      ? <img src={profile.image} alt="Avatar" />
+                      : <FaUserCircle />
+                    }
+                  </div>
+                  <p className="profile-modal-name">{profile.name}</p>
+                  <p className="profile-modal-email">{profile.email}</p>
+                  <button className="profile-modal-logout" onClick={handleLogout}>
+                    Sign out
+                  </button>
+                </>
               ) : (
-                <div className="spinner-border text-primary" role="status" />
+                <p style={{ textAlign: 'center', color: '#5F5F60', fontSize: 14 }}>
+                  Could not load profile.
+                </p>
               )}
-            </div>
-          </div>
-        </div>
-      </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

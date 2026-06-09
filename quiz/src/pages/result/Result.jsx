@@ -12,6 +12,8 @@ export default function Result() {
 
   const correctAnswers = results?.filter((r) => r.isCorrect) || [];
   const wrongAnswers = results?.filter((r) => !r.isCorrect) || [];
+  const scorePercent = results?.length ? Math.round((correctAnswers.length / results.length) * 100) : 0;
+  const isLowScore = scorePercent < 50;
 
   const [isSaved, setIsSaved] = useState(false);
 
@@ -39,7 +41,7 @@ export default function Result() {
 
       if (res.ok) {
         setIsSaved(true);
-        setTimeout(() => navigate('/'), 1500); // Navigate home after delay
+        setTimeout(() => navigate('/dashboard/profile'), 1500); // Navigate profile after delay
       } else {
         console.error("Failed to save result.");
         alert("Failed to save result. Please try again.");
@@ -73,9 +75,9 @@ export default function Result() {
 
   if (!results) {
     return (
-      <div className="text-center pt-5 mt-5">
-        <h3 className="text-white">No results found.</h3>
-        <button className="btn btn-primary mt-3" onClick={() => navigate('/')}>Go Home</button>
+      <div className="empty-result-state">
+        <h3>No results found.</h3>
+        <button className="btn-more empty-result-button" onClick={() => navigate('/quiz')}>Start Quiz</button>
       </div>
     );
   }
@@ -83,7 +85,7 @@ export default function Result() {
   return (
     <div className="result-wrapper">
       <motion.div
-        className="score-card"
+        className={`score-card ${isLowScore ? 'low-score' : ''}`}
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -92,7 +94,11 @@ export default function Result() {
         <div className="score-value">
           {correctAnswers.length} <span className="score-total">/ {results.length}</span>
         </div>
-        <p className="text-muted mt-2">Topic: {topic}</p>
+        <p className="score-topic">Topic: {topic}</p>
+        <div className="score-meter" aria-label={`Score ${scorePercent}%`}>
+          <div className="score-meter-fill" style={{ width: `${scorePercent}%` }}></div>
+        </div>
+        <p className="score-percent">{scorePercent}% Score</p>
       </motion.div>
 
       <div className="result-sections-container">
@@ -105,13 +111,13 @@ export default function Result() {
         >
           <h3><FaTimesCircle /> Incorrect Answers ({wrongAnswers.length})</h3>
           {wrongAnswers.length === 0 ? (
-            <p className="text-muted italic">Great job! No incorrect answers.</p>
+            <p className="result-empty-copy">Great job! No incorrect answers.</p>
           ) : (
             wrongAnswers.map((r, idx) => (
               <div key={idx} className="question-card wrong-bg">
-                <p className="mb-2"><strong>Q:</strong> {r.question}</p>
-                <p className="mb-1 text-danger small"><strong>Your Answer:</strong> {r.userAnswer || 'Not Attempted'}</p>
-                <span className="correct-answer-text small">Correct: {r.correctAnswer}</span>
+                <p className="question-line"><strong>Q:</strong> {r.question}</p>
+                <p className="answer-line wrong-answer-text"><strong>Your Answer:</strong> {r.userAnswer || 'Not Attempted'}</p>
+                <span className="correct-answer-text">Correct: {r.correctAnswer}</span>
               </div>
             ))
           )}
@@ -126,12 +132,12 @@ export default function Result() {
         >
           <h3><FaCheckCircle /> Correct Answers ({correctAnswers.length})</h3>
           {correctAnswers.length === 0 ? (
-            <p className="text-muted italic">No correct answers yet. Keep practicing!</p>
+            <p className="result-empty-copy">No correct answers yet. Keep practicing!</p>
           ) : (
             correctAnswers.map((r, idx) => (
               <div key={idx} className="question-card correct-bg">
-                <p className="mb-2"><strong>Q:</strong> {r.question}</p>
-                <p className="mb-0 text-success small"><strong>Your Answer:</strong> {r.userAnswer}</p>
+                <p className="question-line"><strong>Q:</strong> {r.question}</p>
+                <p className="answer-line correct-answer-line"><strong>Your Answer:</strong> {r.userAnswer}</p>
               </div>
             ))
           )}

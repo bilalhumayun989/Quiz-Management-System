@@ -55,7 +55,7 @@ export default function PreviousResult() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h3 className="mb-4 fw-bold text-white fs-2">Quiz <span className="text-primary">Journal</span></h3>
+        <h3 className="mb-4 fw-bold fs-2">Quiz <span>Journal</span></h3>
 
         <div className="results-table-container">
           <table className="table">
@@ -77,7 +77,7 @@ export default function PreviousResult() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
                 >
-                  <td className="fw-bold text-white">{res.topic}</td>
+                  <td className="topic-cell fw-bold">{res.topic}</td>
                   <td><span className="score-badge">{res.score}/{res.totalQuestions}</span></td>
                   <td className="text-success">{Array.isArray(res.correctAnswers) ? res.correctAnswers.length : res.correctAnswers}</td>
                   <td className="text-danger">{Array.isArray(res.wrongAnswers) ? res.wrongAnswers.length : res.wrongAnswers}</td>

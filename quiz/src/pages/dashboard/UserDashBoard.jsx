@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import SideBar from './SideBar';
 import Profile from './Profile';
 import History from './History';
@@ -9,19 +9,24 @@ import TopicSearch from './TopicSearch';
 
 export default function UserDashBoard() {
   return (
-    <div className="d-flex bg-dark" style={{ minHeight: '100vh' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#F5F5F5' }}>
       <SideBar />
-      <div className="flex-grow-1 p-4 p-md-5 overflow-auto w-100" style={{ background: 'var(--bg-dark)' }}>
-        <div className="container-fluid p-0">
-          <Routes>
-            <Route path="/" element={<Profile />} />
-            <Route path="/history" element={<History />} />
-            <Route path='/previous-result' element={<PreviousResult />}></Route>
-            <Route path='/topic-percentage' element={<TopicPercentage />}></Route>
-            <Route path='/search-topic' element={<TopicSearch />}></Route>
-          </Routes>
-          <Outlet />
-        </div>
+      <div style={{
+        flexGrow: 1,
+        padding: '40px 48px',
+        overflowY: 'auto',
+        background: '#F5F5F5',
+        width: '100%',
+      }}>
+        <Routes>
+          <Route index element={<Navigate to="profile" replace />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/previous-result" element={<PreviousResult />} />
+          <Route path="/topic-percentage" element={<TopicPercentage />} />
+          <Route path="/search-topic" element={<TopicSearch />} />
+        </Routes>
+        <Outlet />
       </div>
     </div>
   );

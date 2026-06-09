@@ -26,7 +26,7 @@ export default function SideBar() {
     <div className="sidebar-container">
       <h2 className="sidebar-title">Quiz<span>App</span></h2>
       <nav className="nav flex-column">
-        <NavLink to="/dashboard/" className={linkClass}>
+        <NavLink to="/dashboard/profile" className={linkClass}>
           <FaUserCircle className="nav-icon" />
           <span>My Profile</span>
         </NavLink>
