@@ -37,7 +37,7 @@ export default function TrendingTopics() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="mb-5 fw-bold text-white fs-2">🔥 Trending <span className="text-primary">Topics</span></h2>
+        <h2 className="mb-5 fw-bold text-white fs-2">Trending <span className="text-primary">Topics</span></h2>
 
         <div className="trending-list">
           {trending.map((item, idx) => (

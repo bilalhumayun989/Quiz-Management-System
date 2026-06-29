@@ -5,7 +5,9 @@
 
 .sidebar-container {
   width: 260px;
-  min-height: 100vh;
+  height: 100vh;
+  position: sticky;
+  top: 0;
   background: #FFFFFF;
   color: #101010;
   padding: 36px 16px;
@@ -13,6 +15,8 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Brand */
@@ -101,6 +105,7 @@
 @media (max-width: 992px) {
   .sidebar-container {
     width: 68px;
+    height: 100vh;
     padding: 28px 8px;
     align-items: center;
   }

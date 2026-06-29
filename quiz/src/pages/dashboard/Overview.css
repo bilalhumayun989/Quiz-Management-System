@@ -1,0 +1,368 @@
+/* ============================================================
+   DASHBOARD OVERVIEW — white / black / gray theme
+   ============================================================ */
+
+.overview-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-bottom: 60px;
+}
+
+/* ── Center states (loading / error) ── */
+.overview-center-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  color: #5F5F60;
+}
+
+.ov-error-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 20px;
+  padding: 40px 36px;
+  max-width: 420px;
+}
+
+.ov-error-card h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #101010;
+  margin: 0;
+}
+
+.ov-error-card p {
+  font-size: 14px;
+  color: #5F5F60;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Header ── */
+.overview-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.overview-greeting {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #101010;
+  margin-bottom: 6px;
+}
+
+.overview-greeting span {
+  color: #5F5F60;
+}
+
+.overview-subtitle {
+  font-size: 14px;
+  color: #5F5F60;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+/* ── CTA button ── */
+.btn-start-quiz {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #101010;
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-start-quiz:hover {
+  background: #2d2d2d;
+  transform: translateY(-1px);
+}
+
+/* ── Stat Cards ── */
+.stat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 16px;
+  padding: 18px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+}
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-body { min-width: 0; }
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9CA3AF;
+  margin: 0 0 3px;
+  font-family: 'Inter', sans-serif;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: #101010;
+  margin: 0 0 2px;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-sub {
+  font-size: 11px;
+  color: #B0B0B0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── No data banner ── */
+.no-data-banner {
+  background: #fff;
+  border: 1.5px dashed #D1D5DB;
+  border-radius: 20px;
+  padding: 60px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.no-data-banner h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #101010;
+  margin: 0;
+}
+
+.no-data-banner p {
+  color: #6B7280;
+  font-size: 14px;
+  margin: 0;
+  max-width: 380px;
+  line-height: 1.6;
+}
+
+/* ── Chart layout ── */
+.charts-row {
+  display: grid;
+  gap: 20px;
+}
+
+.charts-row.two-col {
+  grid-template-columns: 1fr 1fr;
+}
+
+.chart-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 20px;
+  padding: 24px 20px 16px;
+  transition: box-shadow 0.2s ease;
+}
+
+.chart-card:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+/* span-wide takes 60% in a 2-col grid */
+.charts-row.two-col .span-wide {
+  grid-column: auto;
+}
+
+/* full-width card outside a grid */
+.chart-card.full-width {
+  width: 100%;
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #101010;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.chart-note {
+  font-size: 11px;
+  color: #B0B0B0;
+  margin: 8px 0 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Empty chart placeholder ── */
+.empty-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  gap: 10px;
+  color: #B0B0B0;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.empty-chart span { font-size: 32px; }
+
+/* ── Custom Tooltip ── */
+.chart-tooltip {
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  min-width: 120px;
+  line-height: 1.5;
+}
+
+.tt-label {
+  font-weight: 700;
+  color: #D1D5DB;
+  margin: 0 0 4px;
+}
+
+.tt-topic {
+  font-size: 11px;
+  color: #9CA3AF;
+  margin: 4px 0 0;
+}
+
+/* ── Leaderboard ── */
+.topic-leaderboard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.lb-row {
+  display: grid;
+  grid-template-columns: 22px 1fr 36px 1fr 44px;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+}
+
+.lb-rank {
+  font-weight: 800;
+  color: #9CA3AF;
+  font-size: 11px;
+  text-align: center;
+}
+
+.lb-topic {
+  font-weight: 600;
+  color: #101010;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+}
+
+.lb-quizzes {
+  font-size: 11px;
+  color: #B0B0B0;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.lb-bar-wrap {
+  height: 8px;
+  background: #F0F0F0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.lb-bar {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.7s cubic-bezier(.4,0,.2,1);
+  min-width: 4px;
+}
+
+.lb-pct {
+  font-weight: 700;
+  color: #101010;
+  font-size: 12px;
+  text-align: right;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .charts-row.two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .stat-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .overview-greeting { font-size: 22px; }
+
+  .lb-row {
+    grid-template-columns: 22px 1fr 1fr 44px;
+  }
+
+  .lb-quizzes { display: none; }
+}
+
+@media (max-width: 480px) {
+  .stat-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

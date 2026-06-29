@@ -32,7 +32,7 @@ const LoginPage = () => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.user._id);
         localStorage.setItem('userName', data.user.name);
-        navigate('/dashboard/profile');
+        navigate('/dashboard/overview');
       } else {
         setMessage(data.message || 'Invalid credentials');
       }

@@ -6,6 +6,7 @@ import History from './History';
 import PreviousResult from './PreviousResult';
 import TopicPercentage from './TopicPercentage';
 import TopicSearch from './TopicSearch';
+import Overview from './Overview';
 
 export default function UserDashBoard() {
   return (
@@ -19,7 +20,8 @@ export default function UserDashBoard() {
         width: '100%',
       }}>
         <Routes>
-          <Route index element={<Navigate to="profile" replace />} />
+          <Route index element={<Navigate to="overview" replace />} />
+          <Route path="/overview" element={<Overview />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/history" element={<History />} />
           <Route path="/previous-result" element={<PreviousResult />} />
