@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaSearch, FaUserCircle, FaBars, FaTimes, FaGraduationCap } from 'react-icons/fa';
 import './Navbar.css';
+import API_BASE from '../../api';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Navbar = () => {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/questions', {
+      const res = await fetch(`${API_BASE}/api/questions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic }),
@@ -54,7 +55,7 @@ const Navbar = () => {
     setProfileOpen(true);
     setProfileLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/profile', {
+      const res = await fetch(`${API_BASE}/api/auth/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();

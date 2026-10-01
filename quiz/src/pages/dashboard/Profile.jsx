@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import './Profile.css';
+import API_BASE from '../../api';
 
 export default function Profile() {
   const [profile, setProfile] = useState({
@@ -20,7 +21,7 @@ export default function Profile() {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
       try {
-        const res = await fetch("http://localhost:5000/api/auth/profile", {
+        const res = await fetch(`${API_BASE}/api/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -64,7 +65,7 @@ export default function Profile() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/profile", {
+      const res = await fetch(`${API_BASE}/api/auth/profile`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`

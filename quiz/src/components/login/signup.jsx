@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaUser, FaEnvelope, FaLock, FaGraduationCap } from 'react-icons/fa';
 import './signup.css';
+import API_BASE from '../../api';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
@@ -19,7 +20,7 @@ const SignupPage = () => {
     setMessage({ text: '', type: '' });
 
     try {
-      const res = await fetch('http://localhost:5000/api/auth/signup', {
+      const res = await fetch(`${API_BASE}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

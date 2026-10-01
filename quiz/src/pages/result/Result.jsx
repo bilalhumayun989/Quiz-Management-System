@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaTimesCircle, FaSave, FaRedo } from 'react-icons/fa';
 import './result.css';
+import API_BASE from '../../api';
 
 export default function Result() {
   const location = useLocation();
@@ -19,7 +20,7 @@ export default function Result() {
 
   const handleSaveResult = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/result/submit', {
+      const res = await fetch(`${API_BASE}/api/result/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -55,7 +56,7 @@ export default function Result() {
     const askedQuestions = results.map(r => r.question); // previous questions
 
     try {
-      const res = await fetch('http://localhost:5000/api/questions/more', {
+      const res = await fetch(`${API_BASE}/api/questions/more`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic, exclude: askedQuestions }),

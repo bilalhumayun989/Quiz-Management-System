@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import "./PreviousResult.css";
+import API_BASE from '../../api';
 
 export default function TopicPercentage() {
   const [results, setResults] = useState([]);
@@ -19,7 +20,7 @@ export default function TopicPercentage() {
 
     async function fetchResults() {
       try {
-        const res = await axios.get(`http://localhost:5000/api/result/results/${userId}`);
+        const res = await axios.get(`${API_BASE}/api/result/results/${userId}`);
         setResults(res.data);
       } catch (err) {
         console.error("Error fetching results:", err);

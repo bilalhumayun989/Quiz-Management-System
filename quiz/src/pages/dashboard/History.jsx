@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import './TrendingTopics.css';
+import API_BASE from '../../api';
 
 export default function TrendingTopics() {
   const [trending, setTrending] = useState([]);
@@ -8,7 +9,7 @@ export default function TrendingTopics() {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/result/all-results');
+        const res = await fetch(`${API_BASE}/api/result/all-results`);
         const data = await res.json();
 
         const topicCount = {};

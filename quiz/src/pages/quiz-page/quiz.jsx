@@ -8,6 +8,7 @@ import {
   FaAtom, FaLandmark, FaGlobeAmericas, FaFeatherAlt
 } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
+import API_BASE from '../../api';
 
 const fields = [
   {
@@ -60,7 +61,7 @@ const Quiz = () => {
   const fetchQuestions = async (selectedTopic) => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/questions', {
+      const res = await fetch(`${API_BASE}/api/questions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: selectedTopic }),

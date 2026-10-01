@@ -12,6 +12,7 @@ import {
   FaChartLine, FaBook, FaMedal, FaHandPeace,
 } from 'react-icons/fa';
 import { MdOutlineScatterPlot, MdPieChart } from 'react-icons/md';
+import API_BASE from '../../api';
 import './Overview.css';
 
 // ── Stat Card ────────────────────────────────────────────────
@@ -88,8 +89,8 @@ export default function Overview() {
       try {
         // Fetch both in parallel
         const [statsRes, profileRes] = await Promise.all([
-          fetch(`http://localhost:5000/api/result/dashboard-stats/${userId}`),
-          fetch('http://localhost:5000/api/auth/profile', {
+          fetch(`${API_BASE}/api/result/dashboard-stats/${userId}`),
+          fetch(`${API_BASE}/api/auth/profile`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);

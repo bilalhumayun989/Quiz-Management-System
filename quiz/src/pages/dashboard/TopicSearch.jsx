@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import './TopicSearch.css';
+import API_BASE from '../../api';
 
 const TopicSearch = () => {
   const [topic, setTopic] = useState('');
@@ -15,7 +16,7 @@ const TopicSearch = () => {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:5000/api/questions', {
+      const res = await fetch(`${API_BASE}/api/questions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic }),
