@@ -14,7 +14,7 @@ router.post('/signup', validateSignup, async (req, res) => {
     const { name, email, password } = req.body;
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (existingUser) {
       return res.status(409).json({ message: "Email already in use" });
     }
@@ -23,13 +23,11 @@ router.post('/signup', validateSignup, async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user
-    const newUser = new User({
+    await User.create({
       name,
       email,
       password: hashedPassword
     });
-
-    await newUser.save();
     res.status(201).json({ message: "User registered successfully" });
 
   } catch (error) {
@@ -41,7 +39,7 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email.toLowerCase() });
     if (!user)
       return res.status(400).json({ message: 'Invalid email or password' });
 
@@ -94,8 +92,10 @@ const upload = multer({
 // GET Profile
 router.get('/profile', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
+
+    delete user.password;
 
     // Convert image path to URL
     if (user.image) {
@@ -128,11 +128,9 @@ router.put('/profile', auth, upload.single('image'), async (req, res) => {
       updates.image = req.file.filename;
     }
 
-    let user = await User.findByIdAndUpdate(
-      req.user.id,
-      { $set: updates },
-      { new: true, runValidators: true }
-    ).select('-password');
+    const user = await User.updateById(req.user.id, updates);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    delete user.password;
 
     // Convert filename to public URL
     if (user.image) {

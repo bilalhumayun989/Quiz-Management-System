@@ -6,7 +6,7 @@ router.post('/submit', async (req, res) => {
   try {
     const { userId, topic, score, totalQuestions, correctAnswers, wrongAnswers } = req.body;
      console.log(userId , topic)
-    const result = new QuizResult({
+    await QuizResult.create({
       userId,
       topic,
       score,
@@ -15,7 +15,6 @@ router.post('/submit', async (req, res) => {
       wrongAnswers,
     });
 
-    await result.save();
     res.status(201).json({ message: 'Result saved successfully' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to save result' });
@@ -25,7 +24,7 @@ router.post('/submit', async (req, res) => {
 router.get('/results/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
-    const results = await QuizResult.find({ userId }).sort({ createdAt: -1 }); // Latest first
+    const results = await QuizResult.findByUserId(userId, 'DESC'); // Latest first
     res.status(200).json(results);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch results' });
@@ -33,7 +32,7 @@ router.get('/results/:userId', async (req, res) => {
 });
 router.get('/all-results', async (req, res) => {
   try {
-    const results = await QuizResult.find().sort({ createdAt: -1 });
+    const results = await QuizResult.findAll();
     res.status(200).json(results);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch all results' });
@@ -45,7 +44,7 @@ router.get('/all-results', async (req, res) => {
 router.get('/dashboard-stats/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
-    const results = await QuizResult.find({ userId }).sort({ createdAt: 1 });
+    const results = await QuizResult.findByUserId(userId, 'ASC');
 
     if (results.length === 0) {
       return res.status(200).json({
